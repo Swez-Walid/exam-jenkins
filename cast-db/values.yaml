@@ -2,6 +2,10 @@ image:
   repository: postgres
   tag: "12.1-alpine"
 
+service:
+  type: ClusterIP
+  port: 5432
+
 database:
   username: cast_db_username
   password: cast_db_password
