@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}
-  namespace: helm  # Ajout du namespace
+  namespace: dev  # Ajout du namespace
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
