@@ -47,8 +47,8 @@ pipeline {
                 mkdir .kube
                 ls
                 cat $KUBECONFIG > .kube/config
-                helm upgrade --install cast-db ./cast-db --namespace dev
-                helm upgrade --install movie-db ./movie-db --namespace dev
+                helm upgrade --install cast_db ./cast_db --namespace dev
+                helm upgrade --install movie_db ./movie_db --namespace dev
                 helm upgrade --install cast-service ./cast-service --namespace dev
                 helm upgrade --install movie-service ./movie-service --namespace dev
                 '''
