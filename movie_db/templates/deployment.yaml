@@ -14,7 +14,7 @@ spec:
         app: {{ .Release.Name }}
     spec:
       containers:
-        - name: movie-db
+        - name: movie_db
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           ports:
             - containerPort: 5432

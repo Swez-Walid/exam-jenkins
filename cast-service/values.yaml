@@ -13,5 +13,5 @@ hpa:
   maxReplicas: 6
   cpu: 70
 
-databaseUri: postgresql://cast_db_username:cast_db_password@cast-db:5432/cast_db_dev
+databaseUri: postgresql://cast_db_username:cast_db_password@cast_db:5432/cast_db_dev
 castServiceHostUrl: http://cast-service:8000/api/v1/casts/
