@@ -6,7 +6,7 @@ service:
   type: ClusterIP
   port: 5432
 
-database:
-  username: cast_db_username
-  password: cast_db_password
-  db: cast_db_dev
+env:
+  POSTGRES_USER: cast_db_username
+  POSTGRES_PASSWORD: cast_db_password
+  POSTGRES_DB: cast_db_dev
