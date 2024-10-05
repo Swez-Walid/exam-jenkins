@@ -5,9 +5,9 @@ metadata:
   namespace: dev  
 spec:
   type: {{ .Values.service.type }}
-    ports:
-      - port: {{ .Values.service.port }}
-        targetPort: 8000
+   ports:
+     - port: {{ .Values.service.port }}
+       targetPort: 5000
 
 
 
