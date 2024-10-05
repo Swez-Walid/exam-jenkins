@@ -1,0 +1,8 @@
+image:
+  repository: postgres
+  tag: "12.1-alpine"
+
+database:
+  username: cast_db_username
+  password: cast_db_password
+  db: cast_db_dev

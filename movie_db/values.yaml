@@ -1,0 +1,8 @@
+image:
+  repository: postgres
+  tag: "12.1-alpine"
+
+database:
+  username: movie_db_username
+  password: movie_db_password
+  db: movie_db_dev

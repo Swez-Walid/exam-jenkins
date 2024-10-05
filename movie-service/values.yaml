@@ -1,0 +1,11 @@
+replicaCount: 1
+
+image:
+  repository: swezwalid/movie_service
+  tag: "latest"
+
+service:
+  port: 8000
+
+databaseUri: postgresql://movie_db_username:movie_db_password@movie-db/movie_db_dev
+castServiceHostUrl: http://cast-service:8000/api/v1/casts/
