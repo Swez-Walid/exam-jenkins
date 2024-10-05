@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: movie-service
+  name: {{ .Release.Name }}
+  namespace: dev  
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: movie-service
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: movie-service
+        app: {{ .Release.Name }}
     spec:
       containers:
         - name: movie-service
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           ports:
             - containerPort: {{ .Values.service.port }}
           env:

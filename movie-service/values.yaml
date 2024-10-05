@@ -1,4 +1,4 @@
-replicaCount: 1
+replicaCount: 3
 
 image:
   repository: swezwalid/movie-service
@@ -7,6 +7,11 @@ image:
 service:
   type: ClusterIP
   port: 8000
+
+hpa:
+  minReplicas: 3
+  maxReplicas: 6
+  cpu: 70
 
 databaseUri: postgresql://movie_db_username:movie_db_password@movie-db:5432/movie_db_dev
 movieServiceHostUrl: http://movie_service:8000/api/v1/casts/
