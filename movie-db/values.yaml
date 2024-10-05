@@ -6,7 +6,7 @@ service:
   type: ClusterIP
   port: 5432
 
-database:
-  username: movie_db_username
-  password: movie_db_password
-  db: movie_db_dev
+env:
+  POSTGRES_USER: movie_db_username
+  POSTGRES_PASSWORD: movie_db_password
+  POSTGRES_DB: movie_db_dev
