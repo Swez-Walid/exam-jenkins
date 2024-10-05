@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: movie_db
-  namespace: dev
+  name: castdb
+  namespace: dev 
 spec:
   type: {{ .Values.service.type }}
   ports:

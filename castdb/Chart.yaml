@@ -1,5 +1,5 @@
 apiVersion: v2
-name: cast_db
+name: castdb
 description: A Helm chart for Cast DB
 version: 0.1.0
 appVersion: "12.1-alpine"
