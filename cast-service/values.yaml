@@ -9,3 +9,4 @@ service:
   port: 8000
 
 databaseUri: postgresql://cast_db_username:cast_db_password@cast-db/cast_db_dev
+castServiceHostUrl: http://cast-service:8000/api/v1/casts/

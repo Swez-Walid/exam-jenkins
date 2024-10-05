@@ -20,5 +20,5 @@ spec:
           env:
             - name: DATABASE_URI
               value: {{ .Values.databaseUri }}
-            - name: CAST_SERVICE_HOST_URL
-              value: {{ .Values.castServiceHostUrl }}
+            - name: MOVIE_SERVICE_HOST_URL
+              value: {{ .Values.movieServiceHostUrl }}
