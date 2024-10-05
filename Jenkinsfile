@@ -39,10 +39,10 @@ pipeline {
             steps {
                 script {
                     // Deploy each chart separately using Helm
-                    sh 'helm upgrade --install cast-db ./helm-charts/cast-db --namespace dev'
-                    sh 'helm upgrade --install movie-db ./helm-charts/movie-db --namespace dev'
-                    sh 'helm upgrade --install cast-service ./helm-charts/cast-service --namespace dev'
-                    sh 'helm upgrade --install movie-service ./helm-charts/movie-service --namespace dev'
+                    sh 'helm upgrade --install cast-db ./cast-db --namespace dev'
+                    sh 'helm upgrade --install movie-db ./movie-db --namespace dev'
+                    sh 'helm upgrade --install cast-service ./cast-service --namespace dev'
+                    sh 'helm upgrade --install movie-service ./movie-service --namespace dev'
                 }
             }
         }
