@@ -14,7 +14,7 @@ spec:
         app: {{ .Release.Name }}
     spec:
       containers:
-        - name: fastapi
+        - name: cast-service
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           ports:
             - containerPort: {{ .Values.service.port }}

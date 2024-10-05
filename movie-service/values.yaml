@@ -8,5 +8,5 @@ service:
   type: ClusterIP
   port: 8000
 
-databaseUri: postgresql://movie_db_username:movie_db_password@movie-db/movie_db_dev
+databaseUri: postgresql://movie_db_username:movie_db_password@movie-db:5432/movie_db_dev
 movieServiceHostUrl: http://movie_service:8000/api/v1/casts/
