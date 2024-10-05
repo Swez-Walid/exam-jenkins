@@ -1,13 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}
-  namespace: dev  
+  name: cast-service
+  namespace: dev 
 spec:
   type: {{ .Values.service.type }}
   ports:
-  - port: {{ .Values.service.port }}
-  targetPort: 5000
+    - port: {{ .Values.service.port }}
+      targetPort: 8000
+  selector:
+    app: {{ .Release.Name }}
 
 
 
