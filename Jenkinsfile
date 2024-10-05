@@ -36,16 +36,28 @@ pipeline {
         }
 
         stage('Deploy to Kubernetes') {
-            steps {
+             environment
+        {
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        }
+           steps {
                 script {
-                    // Deploy each chart separately using Helm
-                    sh 'helm upgrade --install cast-db ./cast-db --namespace dev'
-                    sh 'helm upgrade --install movie-db ./movie-db --namespace dev'
-                    sh 'helm upgrade --install cast-service ./cast-service --namespace dev'
-                    sh 'helm upgrade --install movie-service ./movie-service --namespace dev'
+                sh '''
+                rm -Rf .kube
+                mkdir .kube
+                ls
+                cat $KUBECONFIG > .kube/config
+                helm upgrade --install cast-db ./cast-db --namespace dev
+                helm upgrade --install movie-db ./movie-db --namespace dev
+                helm upgrade --install cast-service ./cast-service --namespace dev
+                helm upgrade --install movie-service ./movie-service --namespace dev
+                '''
                 }
             }
+
         }
+          
+        
     }
 
     post {
