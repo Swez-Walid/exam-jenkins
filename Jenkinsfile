@@ -13,8 +13,8 @@ pipeline {
             steps {
                 script {
                     // Build images for movie and cast services
-                    sh 'docker build -t $DOCKER_ID/movie_service:latest ./movie-service'
-                    sh 'docker build -t $DOCKER_ID/cast_service:latest ./cast-service'
+                    sh 'docker build -t $DOCKER_ID/movie-service:latest ./movie-service'
+                    sh 'docker build -t $DOCKER_ID/cast-service:latest ./cast-service'
                 }
             }
         }
@@ -28,8 +28,8 @@ pipeline {
                 script {
                 sh '''
                 docker login -u $DOCKER_ID -p $DOCKER_PASS
-                docker push $DOCKER_ID/movie_service:latest
-                docker push $DOCKER_ID/cast_service:latest
+                docker push $DOCKER_ID/movie-service:latest
+                docker push $DOCKER_ID/cast-service:latest
                 '''
                 }
             }
