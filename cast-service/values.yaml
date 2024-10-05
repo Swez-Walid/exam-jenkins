@@ -14,4 +14,3 @@ hpa:
   cpu: 70
 
 databaseUri: postgresql://cast_db_username:cast_db_password@castdb:5432/cast_db_dev
-castServiceHostUrl: http://cast-service:8000/api/v1/casts/

@@ -14,4 +14,3 @@ hpa:
   cpu: 70
 
 databaseUri: postgresql://movie_db_username:movie_db_password@moviedb:5432/movie_db_dev
-movieServiceHostUrl: http://movie_service:8000/api/v1/casts/
