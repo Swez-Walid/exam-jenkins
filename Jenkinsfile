@@ -63,8 +63,8 @@ pipeline {
     post {
         always {
             // Clean up local Docker images
-            sh 'docker rmi $DOCKER_HUB_REPO/movie-service:latest'
-            sh 'docker rmi $DOCKER_HUB_REPO/cast-service:latest'
+            sh 'docker rmi $DOCKER_ID/movie-service:latest'
+            sh 'docker rmi $DOCKER_ID/cast-service:latest'
         }
     }
 }
