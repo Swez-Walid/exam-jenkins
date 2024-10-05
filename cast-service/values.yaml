@@ -1,10 +1,11 @@
 replicaCount: 1
 
 image:
-  repository: swezwalid/cast_service
+  repository: swezwalid/cast-service
   tag: "latest"
 
 service:
+  type: ClusterIP
   port: 8000
 
 databaseUri: postgresql://cast_db_username:cast_db_password@cast-db/cast_db_dev

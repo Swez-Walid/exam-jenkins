@@ -1,10 +1,11 @@
 replicaCount: 1
 
 image:
-  repository: swezwalid/movie_service
+  repository: swezwalid/movie-service
   tag: "latest"
 
 service:
+  type: ClusterIP
   port: 8000
 
 databaseUri: postgresql://movie_db_username:movie_db_password@movie-db/movie_db_dev
