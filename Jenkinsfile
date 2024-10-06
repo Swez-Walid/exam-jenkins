@@ -114,7 +114,7 @@ stages {
             steps {
                 script {
                     // Arrêter et supprimer les conteneurs
-                    sh 'docker stop movie-service cast-service movie_db cast_db && docker rm movie_service cast_service movie_db cast_db'
+                    sh 'docker stop movie-service cast-service movie_db cast_db && docker rm movie-service cast-service movie_db cast_db'
                 }
             }
         }
