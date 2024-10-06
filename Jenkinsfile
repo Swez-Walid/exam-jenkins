@@ -10,10 +10,10 @@ stages {
                 script {
                     // Construire l'image Docker pour le service movie_service
                     
-                    sh 'docker build -t $DOCKER_ID/movie-service:${IMAGE_TAG} ./movie-app'
+                    sh 'docker build -t $DOCKER_ID/movie-service:${DOCKER_TAG} ./movie-app'
 
                     // Construire l'image Docker pour le service cast_service
-                    sh 'docker build -t $DOCKER_ID/cast-service:${IMAGE_TAG} ./cast-app'
+                    sh 'docker build -t $DOCKER_ID/cast-service:${DOCKER_TAG} ./cast-app'
                 }
             }
         }
@@ -65,7 +65,7 @@ stages {
                     --link movie_db \
                     -e DATABASE_URI=postgresql://movie_db_username:movie_db_password@movie_db/movie_db_dev \
                     -e CAST_SERVICE_HOST_URL=http://cast_service:8000/api/v1/casts/ \
-                    $DOCKER_ID/movie_service:${IMAGE_TAG} uvicorn app.main:app --host 0.0.0.0 --port 8000
+                    $DOCKER_ID/movie-service:${DOCKER_TAG} uvicorn app.main:app --host 0.0.0.0 --port 8000
                     '''
 
                     // Attendre que le service soit prêt
@@ -82,7 +82,7 @@ stages {
                     docker run --name cast-service -d -p 8002:8000 \
                     --link cast_db \
                     -e DATABASE_URI=postgresql://cast_db_username:cast_db_password@cast_db/cast_db_dev \
-                    $DOCKER_ID/cast_service:${IMAGE_TAG} uvicorn app.main:app --host 0.0.0.0 --port 8000
+                    $DOCKER_ID/cast-service:${DOCKER_TAG} uvicorn app.main:app --host 0.0.0.0 --port 8000
                     '''
 
                     // Attendre que le service soit prêt
