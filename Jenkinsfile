@@ -91,12 +91,12 @@ pipeline {
         stage('Run Acceptance Tests with Curl') {
             steps {
                 script {
-                    def movieResponse = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8001/api/v1/movies/", returnStdout: true).trim()
+                    def movieResponse = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8001", returnStdout: true).trim()
                     if (movieResponse != '200') {
                         error "Test d'acceptation échoué pour movie-service: code HTTP ${movieResponse} reçu."
                     }
 
-                    def castResponse = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8002/api/v1/casts/", returnStdout: true).trim()
+                    def castResponse = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8002", returnStdout: true).trim()
                     if (castResponse != '200') {
                         error "Test d'acceptation échoué pour cast_service: code HTTP ${castResponse} reçu."
                     }
