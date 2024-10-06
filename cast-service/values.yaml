@@ -2,7 +2,7 @@ replicaCount: 3
 
 image:
   repository: swezwalid/cast-service
-  tag: "latest"
+  tag: ""
 
 service:
   type: ClusterIP

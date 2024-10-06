@@ -131,16 +131,98 @@ stages {
                 }
             }
         }
-    }
-
-    post {
-        success {
-            echo 'Pipeline completed successfully.'
+        stage('Deploiement en dev'){
+        environment
+        {
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         }
-        failure {
-            echo 'Pipeline failed.'
-        }
-    }
+            steps {
+                script {
+                sh '''
+                rm -Rf .kube
+                mkdir .kube
+                ls
+                cat $KUBECONFIG > .kube/config
+                cp cast-service/values.yaml values.yml
+                cat values.yml
+                sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                helm upgrade --install app cast-service --values=values.yml --namespace dev
+                cp movie-service/values.yaml values.yml
+                cat values.yml
+                sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                helm upgrade --install app movie-service --values=values.yml --namespace dev
+                helm upgrade --install app movie-service --values=values.yml --namespace dev
+                helm upgrade --install app castdb /castdb/ --namespace dev
+                helm upgrade --install app castdb /moviedb/ --namespace dev
+                '''
+                }
+            }
 
+        }
+    stage('Deploiement en QA'){
+        environment
+        {
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        }
+            steps {
+                script {
+                sh '''
+                rm -Rf .kube
+                mkdir .kube
+                ls
+                cat $KUBECONFIG > .kube/config
+                cp cast-service/values.yaml values.yml
+                cat values.yml
+                sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                helm upgrade --install app cast-service --values=values.yml --namespace QA
+                cp movie-service/values.yaml values.yml
+                cat values.yml
+                sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                helm upgrade --install app movie-service --values=values.yml --namespace QA
+                helm upgrade --install app castdb /castdb/ --namespace QA
+                helm upgrade --install app castdb /moviedb/ --namespace QA
+                '''
+                }
+            }
+
+        }
+    stage('Deploiement en prod'){
+        environment
+        {
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        }
+            steps {
+            // Create an Approval Button with a timeout of 15minutes.
+            // this require a manuel validation in order to deploy on production environment
+                    timeout(time: 15, unit: "MINUTES") {
+                        input message: 'Do you want to deploy in production ?', ok: 'Yes'
+                    }
+
+                script {
+                sh '''
+                rm -Rf .kube
+                mkdir .kube
+                ls
+                cat $KUBECONFIG > .kube/config
+                cp cast-service/values.yaml values.yml
+                cat values.yml
+                sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                helm upgrade --install app cast-service --values=values.yml --namespace prod
+                cp movie-service/values.yaml values.yml
+                cat values.yml
+                sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                helm upgrade --install app movie-service --values=values.yml --namespace prod
+                helm upgrade --install app castdb /castdb/ --namespace prod
+                helm upgrade --install app castdb /moviedb/ --namespace prod
+                '''
+                }
+            }
+
+        }
+
+
+
+
+    }
 
 }

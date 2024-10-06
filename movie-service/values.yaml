@@ -2,7 +2,7 @@ replicaCount: 3
 
 image:
   repository: swezwalid/movie-service
-  tag: "latest"
+  tag: ""
 
 service:
   type: ClusterIP
