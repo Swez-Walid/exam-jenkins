@@ -121,11 +121,11 @@ pipeline {
                     cat $KUBECONFIG > .kube/config
                     cp cast-service/values.yaml values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-                    sed -i 's/jenkins/dev/g' values.yaml
+                    sed -i 's/jenkins/dev/g' values.yml
                     helm upgrade --install cast-service cast-service --values=values.yml --namespace dev
                     cp movie-service/values.yaml values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-                    sed -i 's/jenkins/dev/g' values.yaml
+                    sed -i 's/jenkins/dev/g' values.yml
                     helm upgrade --install movie-service movie-service --values=values.yml --namespace dev
                     helm upgrade --install castdb castdb --namespace dev
                     helm upgrade --install moviedb moviedb --namespace dev
@@ -146,11 +146,11 @@ pipeline {
                     cat $KUBECONFIG > .kube/config
                     cp cast-service/values.yaml values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-                    sed -i 's/jenkins/qa/g' values.yaml
+                    sed -i 's/jenkins/qa/g' values.yml
                     helm upgrade --install cast-service cast-service --values=values.yml --namespace qa
                     cp movie-service/values.yaml values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-                    sed -i 's/jenkins/qa/g' values.yaml
+                    sed -i 's/jenkins/qa/g' values.yml
                     helm upgrade --install movie-service movie-service --values=values.yml --namespace qa
                     helm upgrade --install castdb castdb --namespace qa
                     helm upgrade --install moviedb moviedb --namespace qa
@@ -170,11 +170,11 @@ pipeline {
                     cat $KUBECONFIG > .kube/config
                     cp cast-service/values.yaml values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-                    sed -i 's/jenkins/staging/g' values.yaml
+                    sed -i 's/jenkins/staging/g' values.yml
                     helm upgrade --install cast-service cast-service --values=values.yml --namespace staging
                     cp movie-service/values.yaml values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-                    sed -i 's/jenkins/staging/g' values.yaml
+                    sed -i 's/jenkins/staging/g' values.yml
                     helm upgrade --install movie-service movie-service --values=values.yml --namespace staging
                     helm upgrade --install castdb castdb --namespace staging
                     helm upgrade --install moviedb moviedb --namespace staging
@@ -197,11 +197,11 @@ pipeline {
                     cat $KUBECONFIG > .kube/config
                     cp cast-service/values.yaml values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-                    sed -i 's/jenkins/prod/g' values.yaml
+                    sed -i 's/jenkins/prod/g' values.yml
                     helm upgrade --install cast-service cast-service --values=values.yml --namespace prod
                     cp movie-service/values.yaml values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-                    sed -i 's/jenkins/prod/g' values.yaml
+                    sed -i 's/jenkins/prod/g' values.yml
                     helm upgrade --install movie-service movie-service --values=values.yml --namespace prod
                     helm upgrade --install castdb castdb --namespace prod
                     helm upgrade --install moviedb moviedb --namespace prod
