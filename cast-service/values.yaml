@@ -2,7 +2,7 @@ replicaCount: 3
 
 image:
   repository: swezwalid/cast-service
-  tag: latest
+  tag: ""
 
 service:
   type: ClusterIP
@@ -21,7 +21,7 @@ ingress:
   hosts:
     - host: jenkins.cours-datascientest-1.cloudns.ch  
       paths:
-        - path: /
+        - path: /api/v1/casts
           pathType: Prefix
   tls:
     - hosts:
