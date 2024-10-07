@@ -99,7 +99,7 @@ pipeline {
                 }
             }
         }
-         stage('Stop and Remove Existing Containers') {
+         stage('cleaning Containers') {
             steps {
                 script {
                     sh '''
