@@ -99,7 +99,16 @@ pipeline {
                 }
             }
         }
-
+         stage('Stop and Remove Existing Containers') {
+            steps {
+                script {
+                    sh '''
+                    docker stop movie-service cast-service movie_db cast_db || true
+                    docker rm movie-service cast-service movie_db cast_db || true
+                    '''
+                }
+            }
+        }
         stage('Deploiement en dev') {
             environment {
                 KUBECONFIG = credentials("config")
