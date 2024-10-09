@@ -21,7 +21,7 @@ ingress:
   hosts:
     - host: jenkins.cours-datascientest-1.cloudns.ch  
       paths:
-        - path: /api/v1/casts/
+        - path: /
           pathType: Prefix
   tls:
     - hosts:
