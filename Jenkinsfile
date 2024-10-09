@@ -20,8 +20,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    docker stop movie-service cast-service movie_db cast_db || true
-                    docker rm movie-service cast-service movie_db cast_db || true
+                    docker stop movie-service cast-service movie_db cast_db castdb moviedb|| true
+                    docker rm movie-service cast-service movie_db cast_db castdb moviedb || true
                     '''
                 }
             }
@@ -103,8 +103,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    docker stop movie-service cast-service movie_db cast_db || true
-                    docker rm movie-service cast-service movie_db cast_db || true
+                    docker stop movie-service cast-service movie_db cast_db castdb moviedb|| true
+                    docker rm movie-service cast-service movie_db cast_db castdb moviedb|| true
                     '''
                 }
             }
