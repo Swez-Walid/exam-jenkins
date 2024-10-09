@@ -15,9 +15,6 @@ spec:
       containers:
         - name: moviedb
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          volumeMounts:
-          - mountPath: /var/lib/postgresql/data/
-            name: postgres_data_movie
           ports:
             - containerPort: 5432
           env:
