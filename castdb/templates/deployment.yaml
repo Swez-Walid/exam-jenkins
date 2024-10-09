@@ -15,8 +15,11 @@ spec:
       containers:
         - name: castdb
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          volumeMounts:
+          - mountPath: /var/lib/postgresql/data/
+            name: postgres_data_cast
           volumes:
-          - postgres_data_cast:/var/lib/postgresql/data/
+         - name: postgres_data_cast
           ports:
             - containerPort: 5432
           env:
