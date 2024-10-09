@@ -27,3 +27,4 @@ ingress:
       secretName: movie-service-tls
 
 databaseUri: postgresql://movie_db_username:movie_db_password@moviedb:5432/movie_db_dev
+
