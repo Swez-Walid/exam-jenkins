@@ -6,7 +6,7 @@ image:
 
 service:
   type: ClusterIP
-  port: 8000
+  port: 8001
 
 hpa:
   minReplicas: 3
@@ -21,7 +21,7 @@ ingress:
   hosts:
     - host: jenkins.cours-datascientest-1.cloudns.ch  
       paths:
-        - path: /
+        - path: /api/v1/casts/
           pathType: Prefix
   tls:
     - hosts:
