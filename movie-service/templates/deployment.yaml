@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}  
+  name: movie-service  
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}
+      app: movie-service
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}
+        app: movie-service
     spec:
       containers:
         - name: movie-service

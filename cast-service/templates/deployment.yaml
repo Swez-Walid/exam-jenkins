@@ -1,17 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}
+  name: cast-service
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}
+      app: cast-service
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}
-    spec:
+        app: cast-service
       containers:
         - name: cast-service
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
