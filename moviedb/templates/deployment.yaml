@@ -17,6 +17,13 @@ spec:
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           ports:
             - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data
+          volumes:
+            - name: postgres-data
+          persistentVolumeClaim:
+            claimName: movie-db-pvc
           env:
             - name: POSTGRES_USER
               value: {{ .Values.env.POSTGRES_USER }}
