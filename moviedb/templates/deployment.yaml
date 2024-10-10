@@ -19,9 +19,9 @@ spec:
             - containerPort: 5432
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: postgres-data
+              name: movie-db-data
           volumes:
-            - name: postgres-data
+            - name: movie-db-data
           persistentVolumeClaim:
             claimName: movie-db-pvc
           env:
