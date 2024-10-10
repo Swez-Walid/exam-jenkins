@@ -1,4 +1,4 @@
-replicaCount: 3
+replicaCount: 1
 
 image:
   repository: swezwalid/cast-service
@@ -6,7 +6,7 @@ image:
 
 service:
   type: ClusterIP
-  port: 8001
+  port: 8000
 
 hpa:
   minReplicas: 3
