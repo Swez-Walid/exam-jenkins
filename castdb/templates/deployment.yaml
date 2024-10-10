@@ -20,10 +20,6 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: cast-db-data
-          volumes:
-            - name: cast-db-data
-          persistentVolumeClaim:
-            claimName: cast-db-pvc
           env:
             - name: POSTGRES_USER
               value: {{ .Values.env.POSTGRES_USER }}
@@ -31,3 +27,7 @@ spec:
               value: {{ .Values.env.POSTGRES_PASSWORD }}
             - name: POSTGRES_DB
               value: {{ .Values.env.POSTGRES_DB }}
+      volumes:
+        - name: cast-db-data
+          persistentVolumeClaim:
+            claimName: cast-db-pvc
