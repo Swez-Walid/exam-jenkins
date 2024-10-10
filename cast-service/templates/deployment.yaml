@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cast-service
-  labels:
-    app: cast-service
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -22,18 +20,4 @@ spec:
           command: ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
           env:
             - name: DATABASE_URI
-              value: "postgresql://{{ .Values.database.username }}:{{ .Values.database.password }}@{{ .Values.database.host }}:{{ .Values.database.port }}/{{ .Values.database.name }}"
-
-          # Optionnel: Probes de santé
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: {{ .Values.service.port }}
-            initialDelaySeconds: 30
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: {{ .Values.service.port }}
-            initialDelaySeconds: 5
-            periodSeconds: 10
+              value: "postgresql://cast_db_username:cast_db_password@castdb:5432/cast_db_dev"
