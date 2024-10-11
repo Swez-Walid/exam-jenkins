@@ -1,4 +1,3 @@
-
 pipeline {
     environment {
         DOCKER_ID = "swezwalid"
@@ -17,6 +16,16 @@ pipeline {
             }
         }
 
+        stage('Stop and Remove Existing Containers') {
+            steps {
+                script {
+                    sh '''
+                    docker stop movie-service cast-service movie_db cast_db castdb moviedb|| true
+                    docker rm movie-service cast-service movie_db cast_db castdb moviedb || true
+                    '''
+                }
+            }
+        }
         stage('Push Docker Images to DockerHub') {
             steps {
                 script {
@@ -26,72 +35,46 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy to dev') {
+         stage('cleaning Containers') {
+            steps {
+                script {
+                    sh '''
+                    docker stop movie-service cast-service movie_db cast_db castdb moviedb|| true
+                    docker rm movie-service cast-service movie_db cast_db castdb moviedb|| true
+                    '''
+                }
+            }
+        }
+        stage('Deploiement en dev') {
             environment {
                 KUBECONFIG = credentials("config")
             }
             steps {
                 script {
                     sh '''
-                    helm upgrade --install movie-db ./moviedb --namespace dev --set namespace=dev
-                    helm upgrade --install cast-db ./castdb --namespace dev --set namespace=dev
-                    helm upgrade --install movie-service ./movie-service --namespace dev --set image.tag=${DOCKER_TAG} --set namespace=dev
-                    helm upgrade --install cast-service ./cast-service --namespace dev --set image.tag=${DOCKER_TAG} --set namespace=dev
+                    rm -Rf .kube
+                    mkdir .kube
+                    cat $KUBECONFIG > .kube/config
+                    helm upgrade --install castdb castdb --namespace dev
+                    helm upgrade --install moviedb moviedb --namespace dev
                     '''
-                }
-            }
-        }
+                    
+                    sleep(10)
 
-        stage('Deploy to qa') {
-            when {
-                branch 'qa'
-            }
-            steps {
-                script {
                     sh '''
-                    helm upgrade --install movie-db ./moviedb --namespace qa --set namespace=qa
-                    helm upgrade --install cast-db ./castdb --namespace qa --set namespace=qa
-                    helm upgrade --install movie-service ./movie-service --namespace qa --set image.tag=${DOCKER_TAG} --set namespace=qa
-                    helm upgrade --install cast-service ./cast-service --namespace qa --set image.tag=${DOCKER_TAG} --set namespace=qa
-                    helm upgrade --install nginx-ingress ./nginx --namespace qa
-                    '''
-                }
-            }
-        }
+                    cp cast-service/values.yaml values.yml
+                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                    sed -i 's/jenkins/dev/g' values.yml
+                    helm upgrade --install cast-service cast-service --values=values.yml --namespace dev
+                    cp movie-service/values.yaml values.yml
+                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                    sed -i 's/jenkins/dev/g' values.yml
+                    helm upgrade --install movie-service movie-service --values=values.yml --namespace dev
 
-        stage('Deploy to staging') {
-            when {
-                branch 'staging'
-            }
-            steps {
-                script {
-                    sh '''
-                    helm upgrade --install movie-db ./moviedb --namespace staging --set namespace=staging
-                    helm upgrade --install cast-db ./castdb --namespace staging --set namespace=staging
-                    helm upgrade --install movie-service ./movie-service --namespace staging --set image.tag=${DOCKER_TAG} --set namespace=staging
-                    helm upgrade --install cast-service ./cast-service --namespace staging --set image.tag=${DOCKER_TAG} --set namespace=staging
-                    helm upgrade --install nginx-ingress ./nginx --namespace staging
                     '''
                 }
             }
-        }
-
-        stage('Deploy to prod') {
-            when {
-                branch 'master'
-            }
-            steps {
-                script {
-                    sh '''
-                    helm upgrade --install movie-db ./moviedb --namespace prod --set namespace=prod
-                    helm upgrade --install cast-db ./castdb --namespace prod --set namespace=prod
-                    helm upgrade --install movie-service ./movie-service --namespace prod --set image.tag=${DOCKER_TAG} --set namespace=prod
-                    helm upgrade --install cast-service ./cast-service --namespace prod --set image.tag=${DOCKER_TAG} --set namespace=prod
-                    helm upgrade --install nginx-ingress ./nginx --namespace prod
-                    '''
-                }
-            }
-        }
+        }  
     }
 }
+
