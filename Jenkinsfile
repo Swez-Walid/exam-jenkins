@@ -38,7 +38,6 @@ pipeline {
                     helm upgrade --install cast-db ./castdb --namespace dev --set namespace=dev
                     helm upgrade --install movie-service ./movie-service --namespace dev --set image.tag=${DOCKER_TAG} --set namespace=dev
                     helm upgrade --install cast-service ./cast-service --namespace dev --set image.tag=${DOCKER_TAG} --set namespace=dev
-                    helm upgrade --install nginx-ingress ./nginx --namespace dev
                     '''
                 }
             }
