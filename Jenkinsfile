@@ -74,7 +74,94 @@ pipeline {
                     '''
                 }
             }
-        }  
+        } 
+                // Déploiement en QA
+        stage('Deploiement en QA') {
+            environment {
+                KUBECONFIG = credentials("config")
+            }
+            steps {
+                script {
+                    sh '''
+                    helm upgrade --install castdb castdb --namespace qa
+                    helm upgrade --install moviedb moviedb --namespace qa
+                    '''
+
+                    sleep(10)
+
+                    sh '''
+                    cp cast-service/values.yaml values.yml
+                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                    sed -i 's/jenkins/qa/g' values.yml
+                    helm upgrade --install cast-service cast-service --values=values.yml --namespace qa
+                    cp movie-service/values.yaml values.yml
+                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                    sed -i 's/jenkins/qa/g' values.yml
+                    helm upgrade --install movie-service movie-service --values=values.yml --namespace qa
+                    '''
+                }
+            }
+        }
+
+        // Déploiement en staging
+        stage('Deploiement en Staging') {
+            environment {
+                KUBECONFIG = credentials("config")
+            }
+            steps {
+                script {
+                    sh '''
+                    helm upgrade --install castdb castdb --namespace staging
+                    helm upgrade --install moviedb moviedb --namespace staging
+                    '''
+
+                    sleep(10)
+
+                    sh '''
+                    cp cast-service/values.yaml values.yml
+                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                    sed -i 's/jenkins/staging/g' values.yml
+                    helm upgrade --install cast-service cast-service --values=values.yml --namespace staging
+                    cp movie-service/values.yaml values.yml
+                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                    sed -i 's/jenkins/staging/g' values.yml
+                    helm upgrade --install movie-service movie-service --values=values.yml --namespace staging
+                    '''
+                }
+            }
+        }
+
+        // Déploiement en production (uniquement sur la branche master)
+        stage('Deploiement en Production') {
+            when {
+                branch 'master'
+            }
+            environment {
+                KUBECONFIG = credentials("config")
+            }
+            steps {
+                script {
+                    input message: "Confirmez-vous le déploiement en production ?", ok: "Déployer"
+                    sh '''
+                    helm upgrade --install castdb castdb --namespace prod
+                    helm upgrade --install moviedb moviedb --namespace prod
+                    '''
+
+                    sleep(10)
+
+                    sh '''
+                    cp cast-service/values.yaml values.yml
+                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                    sed -i 's/jenkins/prod/g' values.yml
+                    helm upgrade --install cast-service cast-service --values=values.yml --namespace prod
+                    cp movie-service/values.yaml values.yml
+                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                    sed -i 's/jenkins/prod/g' values.yml
+                    helm upgrade --install movie-service movie-service --values=values.yml --namespace prod
+                    '''
+                }
+            }
+        } 
     }
 }
 
