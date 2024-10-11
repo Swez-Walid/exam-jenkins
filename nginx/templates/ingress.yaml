@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: jenkins.cours-datascientest-1.cloudns.ch
+    http:
+      paths:
+      - path: /movie
+        pathType: Prefix
+        backend:
+          service:
+            name: movie-service
+            port:
+              number: 8000
+      - path: /cast
+        pathType: Prefix
+        backend:
+          service:
+            name: cast-service
+            port:
+              number: 8001
