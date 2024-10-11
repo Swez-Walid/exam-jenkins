@@ -6,7 +6,7 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: cast-service
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
