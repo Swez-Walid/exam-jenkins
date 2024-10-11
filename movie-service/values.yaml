@@ -3,11 +3,9 @@ replicaCount: 1
 image:
   repository: swezwalid/movie-service
   tag: ""
-
 service:
   type: ClusterIP
-  port: 8000
-
+  port: 8001
 hpa:
   minReplicas: 1
   maxReplicas: 6
@@ -25,6 +23,5 @@ ingress:
     - hosts:
         - jenkins.cours-datascientest-1.cloudns.ch
       secretName: movie-service-tls
-
 databaseUri: postgresql://movie_db_username:movie_db_password@moviedb:5432/movie_db_dev
 

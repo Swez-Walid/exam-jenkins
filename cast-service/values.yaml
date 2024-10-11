@@ -3,17 +3,13 @@ replicaCount: 1
 image:
   repository: swezwalid/cast-service
   tag: ""
-
 service:
   type: ClusterIP
   port: 8000
-
 hpa:
   minReplicas: 1
   maxReplicas: 6
   cpu: 70
-
-
 ingress:
   enabled: true
   annotations:
@@ -27,5 +23,4 @@ ingress:
     - hosts:
         - jenkins.cours-datascientest-1.cloudns.ch
       secretName: cast-service-tls
-
 databaseUri: postgresql://cast_db_username:cast_db_password@castdb:5432/cast_db_dev
