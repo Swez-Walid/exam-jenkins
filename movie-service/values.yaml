@@ -15,7 +15,9 @@ hpa:
 ingress:
   enabled: true
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"  
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
   hosts:
     - host: jenkins.cours-datascientest-1.cloudns.ch  
       paths:
