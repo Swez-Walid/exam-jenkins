@@ -5,7 +5,8 @@ metadata:
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
-    app: {{ .Release.Name }}
+    matchLabels:
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
