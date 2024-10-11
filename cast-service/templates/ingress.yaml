@@ -10,10 +10,10 @@ spec:
   - host: jenkins.cours-datascientest-1.cloudns.ch
     http:
       paths:
-      - path: /cast
+      - path: /api/v1/casts
         pathType: Prefix
         backend:
           service:
             name: cast-service
             port:
-              number: 8001
+              number: 8000
