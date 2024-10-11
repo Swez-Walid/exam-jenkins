@@ -34,11 +34,11 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    helm upgrade --install movie-db ./moviedb --namespace dev --set namespace=dev
-                    helm upgrade --install cast-db ./castdb --namespace dev --set namespace=dev
-                    helm upgrade --install movie-service ./movie-service --namespace dev --set image.tag=${DOCKER_TAG} --set namespace=dev
-                    helm upgrade --install cast-service ./cast-service --namespace dev --set image.tag=${DOCKER_TAG} --set namespace=dev
-                    helm upgrade --install nginx-ingress ./nginx --namespace dev
+                    helm upgrade --install movie-db ./helm_charts/movie-db --namespace dev --set namespace=dev
+                    helm upgrade --install cast-db ./helm_charts/cast-db --namespace dev --set namespace=dev
+                    helm upgrade --install movie-service ./helm_charts/movie-service --namespace dev --set image.tag=${DOCKER_TAG} --set namespace=dev
+                    helm upgrade --install cast-service ./helm_charts/cast-service --namespace dev --set image.tag=${DOCKER_TAG} --set namespace=dev
+                    helm upgrade --install nginx-ingress ./helm_charts/nginx-ingress --namespace dev
                     '''
                 }
             }
@@ -51,11 +51,11 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    helm upgrade --install movie-db ./moviedb --namespace qa --set namespace=qa
-                    helm upgrade --install cast-db ./castdb --namespace qa --set namespace=qa
-                    helm upgrade --install movie-service ./movie-service --namespace qa --set image.tag=${DOCKER_TAG} --set namespace=qa
-                    helm upgrade --install cast-service ./cast-service --namespace qa --set image.tag=${DOCKER_TAG} --set namespace=qa
-                    helm upgrade --install nginx-ingress ./nginx --namespace qa
+                    helm upgrade --install movie-db ./helm_charts/movie-db --namespace qa --set namespace=qa
+                    helm upgrade --install cast-db ./helm_charts/cast-db --namespace qa --set namespace=qa
+                    helm upgrade --install movie-service ./helm_charts/movie-service --namespace qa --set image.tag=${DOCKER_TAG} --set namespace=qa
+                    helm upgrade --install cast-service ./helm_charts/cast-service --namespace qa --set image.tag=${DOCKER_TAG} --set namespace=qa
+                    helm upgrade --install nginx-ingress ./helm_charts/nginx-ingress --namespace qa
                     '''
                 }
             }
@@ -68,11 +68,11 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    helm upgrade --install movie-db ./moviedb --namespace staging --set namespace=staging
-                    helm upgrade --install cast-db ./castdb --namespace staging --set namespace=staging
-                    helm upgrade --install movie-service ./movie-service --namespace staging --set image.tag=${DOCKER_TAG} --set namespace=staging
-                    helm upgrade --install cast-service ./cast-service --namespace staging --set image.tag=${DOCKER_TAG} --set namespace=staging
-                    helm upgrade --install nginx-ingress ./nginx --namespace staging
+                    helm upgrade --install movie-db ./helm_charts/movie-db --namespace staging --set namespace=staging
+                    helm upgrade --install cast-db ./helm_charts/cast-db --namespace staging --set namespace=staging
+                    helm upgrade --install movie-service ./helm_charts/movie-service --namespace staging --set image.tag=${DOCKER_TAG} --set namespace=staging
+                    helm upgrade --install cast-service ./helm_charts/cast-service --namespace staging --set image.tag=${DOCKER_TAG} --set namespace=staging
+                    helm upgrade --install nginx-ingress ./helm_charts/nginx-ingress --namespace staging
                     '''
                 }
             }
@@ -85,11 +85,11 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    helm upgrade --install movie-db ./moviedb --namespace prod --set namespace=prod
-                    helm upgrade --install cast-db ./castdb --namespace prod --set namespace=prod
-                    helm upgrade --install movie-service ./movie-service --namespace prod --set image.tag=${DOCKER_TAG} --set namespace=prod
-                    helm upgrade --install cast-service ./cast-service --namespace prod --set image.tag=${DOCKER_TAG} --set namespace=prod
-                    helm upgrade --install nginx-ingress ./nginx --namespace prod
+                    helm upgrade --install movie-db ./helm_charts/movie-db --namespace prod --set namespace=prod
+                    helm upgrade --install cast-db ./helm_charts/cast-db --namespace prod --set namespace=prod
+                    helm upgrade --install movie-service ./helm_charts/movie-service --namespace prod --set image.tag=${DOCKER_TAG} --set namespace=prod
+                    helm upgrade --install cast-service ./helm_charts/cast-service --namespace prod --set image.tag=${DOCKER_TAG} --set namespace=prod
+                    helm upgrade --install nginx-ingress ./helm_charts/nginx-ingress --namespace prod
                     '''
                 }
             }
