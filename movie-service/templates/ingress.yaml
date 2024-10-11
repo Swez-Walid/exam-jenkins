@@ -11,7 +11,7 @@ spec:
   - host: jenkins.cours-datascientest-1.cloudns.ch/api/v1/movies
     http:
       paths:
-      - path: http://movie_service:8000/api/v1/movies
+      - path: movie_service:8000/api/v1/movies
         pathType: Prefix
         backend:
           service:
