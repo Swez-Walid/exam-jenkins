@@ -17,7 +17,7 @@ spec:
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           ports:
             - containerPort: 8000
-          command: ["uvicorn", "app.main:app", "--reload", "--port", "8000"]
+          command: ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
           env:
             - name: DATABASE_URI
               value: "postgresql://movie_db_username:movie_db_password@moviedb:5432/movie_db_dev"
