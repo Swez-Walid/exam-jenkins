@@ -20,7 +20,7 @@ spec:
               service:
                 name: {{ $.Release.Name }}
                 port:
-                  number: 8001
+                  number: 8000
             {{- end }}
       {{- end }}
   {{- if .Values.ingress.tls }}

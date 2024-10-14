@@ -5,7 +5,7 @@ image:
   tag: ""
 service:
   type: ClusterIP
-  port: 8001
+  port: 8000
 hpa:
   minReplicas: 1
   maxReplicas: 6
