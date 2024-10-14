@@ -134,8 +134,10 @@ pipeline {
         // Déploiement en production (uniquement sur la branche master)
         stage('Deploiement en Production') {
             when {
-                branch 'master'
-            }
+        expression {
+            return env.GIT_BRANCH == 'origin/master'
+        }
+    }
             environment {
                 KUBECONFIG = credentials("config")
             }
