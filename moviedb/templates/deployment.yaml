@@ -27,6 +27,7 @@ spec:
               value: {{ .Values.env.POSTGRES_PASSWORD }}
             - name: POSTGRES_DB
               value: {{ .Values.env.POSTGRES_DB }}
+            
       volumes:
         - name: movie-db-data
           persistentVolumeClaim:
